@@ -457,7 +457,7 @@
             let lateCount = 0;
 
             students.forEach((student, index) => {
-                const status = currentRecord[student.id] || 'geldi'; // default status: geldi
+                const status = currentRecord[student.id] || null; // Varsayılan olarak SEÇİMSİZ (null) yapıldı.
                 
                 if (status === 'geldi') presentCount++;
                 else if (status === 'gelmedi') absentCount++;
