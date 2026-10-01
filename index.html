@@ -214,7 +214,7 @@
         </div>
     </div>
 
-    <!-- Modal: Bulk Student Add (Text Copy-Paste & Excel/CSV Drop) -->
+    <!-- Modal: Bulk Student Add -->
     <div id="bulkAddModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-xl shadow-xl max-w-xl w-full p-6 space-y-4">
             <div class="flex justify-between items-center border-b pb-3">
@@ -256,7 +256,6 @@
 
     <!-- Application JavaScript Logic -->
     <script>
-        // Initial Default Student Data from Provided File
         const INITIAL_DATA = {
             "9/A": [
                 {"id": 1, "name": "CEYLİN ASLI İSKAR", "number": "12", "advisor": "ÖMER BOZDAĞ"},
@@ -268,10 +267,10 @@
                 {"id": 7, "name": "SARE ÖZTÜRK", "number": "25", "advisor": "ÖMER BOZDAĞ"},
                 {"id": 8, "name": "BADE ÖZTÜRK", "number": "40", "advisor": "ÖMER BOZDAĞ"},
                 {"id": 9, "name": "NECİBE ATAŞ", "number": "70", "advisor": "ÖMER BOZDAĞ"},
-                {"id": 10, "name": "FATMA ÖYKÜ EVGEÇ", "number": "79", "advisor": "ÖMER BOZDAĞ"}
-		{"id": 11, "name": "İLKE BİDAN", "number": "-", "advisor": "ÖMER BOZDAĞ"}
-		{"id": 12, "name": "ÇINAR YILMAZ", "number": "-", "advisor": "ÖMER BOZDAĞ"}
-		{"id": 13, "name": "ARTUN KURUCU", "number": "-", "advisor": "ÖMER BOZDAĞ"}
+                {"id": 10, "name": "FATMA ÖYKÜ EVGEÇ", "number": "79", "advisor": "ÖMER BOZDAĞ"},
+                {"id": 11, "name": "İLKE BİDAN", "number": "-", "advisor": "ÖMER BOZDAĞ"},
+                {"id": 12, "name": "ÇINAR YILMAZ", "number": "-", "advisor": "ÖMER BOZDAĞ"},
+                {"id": 13, "name": "ARTUN KURUCU", "number": "-", "advisor": "ÖMER BOZDAĞ"}
             ],
             "9/B": [
                 {"id": 1, "name": "EMİR YUSUF ÜÇÜNCÜ", "number": "10", "advisor": "SELEN IŞIK"},
@@ -297,9 +296,9 @@
                 {"id": 8, "name": "BEDRİ BERK ÖZDEN", "number": "136", "advisor": "HÜSEYİN YILMAZ"},
                 {"id": 9, "name": "HAMZA ANIK", "number": "142", "advisor": "HÜSEYİN YILMAZ"},
                 {"id": 10, "name": "MELEK AKPINAR", "number": "145", "advisor": "HÜSEYİN YILMAZ"},
-                {"id": 11, "name": "EMİR MAHMUT BEYAZKAZ", "number": "149", "advisor": "HÜSEYİN YILMAZ"}
-		{"id": 12, "name": "ALİ ÖMER DOĞAN", "number": "-", "advisor": "HÜSEYİN YILMAZ"}
-		{"id": 13, "name": "BARAN AYDINLI", "number": "-", "advisor": "HÜSEYİN YILMAZ"}
+                {"id": 11, "name": "EMİR MAHMUT BEYAZKAZ", "number": "149", "advisor": "HÜSEYİN YILMAZ"},
+                {"id": 12, "name": "ALİ ÖMER DOĞAN", "number": "-", "advisor": "HÜSEYİN YILMAZ"},
+                {"id": 13, "name": "BARAN AYDINLI", "number": "-", "advisor": "HÜSEYİN YILMAZ"}
             ],
             "10/B": [
                 {"id": 1, "name": "SUDEN TEZEL", "number": "5", "advisor": "NEHİR ÇEVİK"},
@@ -339,8 +338,8 @@
                 {"id": 17, "name": "NİL BÜLBÜL", "number": "117", "advisor": "SİBEL BAŞBOĞAR"},
                 {"id": 18, "name": "ALİ DEMİR ATABAY", "number": "123", "advisor": "SİBEL BAŞBOĞAR"},
                 {"id": 19, "name": "AZRA ALTAN", "number": "126", "advisor": "SİBEL BAŞBOĞAR"},
-                {"id": 20, "name": "RONAY SÜTLÜBULAK", "number": "148", "advisor": "SİBEL BAŞBOĞAR"}
-		{"id": 21, "name": "ARİF EGE KIRAN", "number": "-", "advisor": "SİBEL BAŞBOĞAR"}
+                {"id": 20, "name": "RONAY SÜTLÜBULAK", "number": "148", "advisor": "SİBEL BAŞBOĞAR"},
+                {"id": 21, "name": "ARİF EGE KIRAN", "number": "-", "advisor": "SİBEL BAŞBOĞAR"}
             ],
             "11/B": [
                 {"id": 1, "name": "AYŞE ŞEYMA CÜREOĞLU", "number": "13", "advisor": "ŞEYMA ULUS"},
@@ -353,8 +352,8 @@
                 {"id": 8, "name": "DAMLA ŞEN", "number": "111", "advisor": "ŞEYMA ULUS"},
                 {"id": 9, "name": "CİHAN CAN TURGUT", "number": "113", "advisor": "ŞEYMA ULUS"},
                 {"id": 10, "name": "NUREDDİN AŞKARGENÇ", "number": "115", "advisor": "ŞEYMA ULUS"},
-                {"id": 11, "name": "EMİRHAN ERGENEKON", "number": "119", "advisor": "ŞEYMA ULUS"}
-		{"id": 11, "name": "MELEK KARAARSLAN", "number": "-", "advisor": "ŞEYMA ULUS"}
+                {"id": 11, "name": "EMİRHAN ERGENEKON", "number": "119", "advisor": "ŞEYMA ULUS"},
+                {"id": 12, "name": "MELEK KARAARSLAN", "number": "-", "advisor": "ŞEYMA ULUS"}
             ],
             "12/A": [
                 {"id": 1, "name": "SÜMER KAAN TUNÇLAR", "number": "30", "advisor": "MERVE ZİNGAL"},
@@ -388,16 +387,12 @@
             ]
         };
 
-        // State Variables
         let classData = JSON.parse(localStorage.getItem('okul_classes')) || INITIAL_DATA;
         let attendanceRecords = JSON.parse(localStorage.getItem('okul_attendance')) || {};
         let selectedExcelStudents = [];
 
-        // App Init
         window.onload = function() {
-            // Set Today's Date
             document.getElementById('dateSelect').value = new Date().toISOString().split('T')[0];
-            
             renderClassSelectOptions();
             loadAttendance();
         };
@@ -464,7 +459,7 @@
             let lateCount = 0;
 
             students.forEach((student, index) => {
-                const status = currentRecord[student.id] || null; // Varsayılan olarak SEÇİMSİZ (null) yapıldı.
+                const status = currentRecord[student.id] || null; 
                 
                 if (status === 'geldi') presentCount++;
                 else if (status === 'gelmedi') absentCount++;
@@ -487,24 +482,11 @@
                     </div>
 
                     <div class="flex items-center gap-1.5 w-full md:w-auto justify-end">
-                        <button onclick="setStatus(${student.id}, 'geldi')" class="btn-status px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition ${status === 'geldi' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600'}">
-                            <i class="fa-solid fa-check"></i> Geldi
-                        </button>
-                        <button onclick="setStatus(${student.id}, 'gelmedi')" class="btn-status px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition ${status === 'gelmedi' ? 'bg-red-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-600'}">
-                            <i class="fa-solid fa-xmark"></i> Gelmedi
-                        </button>
-                        <button onclick="setStatus(${student.id}, 'geckaldi')" class="btn-status px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition ${status === 'geckaldi' ? 'bg-amber-500 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-amber-50 hover:text-amber-600'}">
-                            <i class="fa-solid fa-clock"></i> Geç
-                        </button>
-                        <button onclick="setStatus(${student.id}, 'mazeret')" class="btn-status px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition ${status === 'mazeret' ? 'bg-sky-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-sky-50 hover:text-sky-600'}">
-                            <i class="fa-solid fa-file-signature"></i> İzinli
-                        </button>
-                        <button onclick="deleteStudent(${student.id})" title="Öğrenciyi Sil" class="text-slate-300 hover:text-red-500 px-2 py-1 transition">
-                            <i class="fa-solid fa-trash text-xs"></i>
-                        </button>
+                        <button onclick="setStatus(${student.id}, 'geldi')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition ${status === 'geldi' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'}">Geldi</button>
+                        <button onclick="setStatus(${student.id}, 'gelmedi')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition ${status === 'gelmedi' ? 'bg-red-600 text-white shadow-sm' : 'bg-red-50 text-red-700 hover:bg-red-100'}">Gelmedi</button>
+                        <button onclick="setStatus(${student.id}, 'geckaldi')" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition ${status === 'geckaldi' ? 'bg-amber-600 text-white shadow-sm' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'}">Geç Kaldı</button>
                     </div>
                 `;
-
                 container.appendChild(row);
             });
 
@@ -512,25 +494,15 @@
         }
 
         function setStatus(studentId, status) {
-            const key = getKey();
-            if (!attendanceRecords[key]) attendanceRecords[key] = {};
-            
-            attendanceRecords[key][studentId] = status;
-            saveData();
-            loadAttendance();
-        }
-
-        function markAll(status) {
-            const className = document.getElementById('classSelect').value;
-            if (!className || !classData[className]) return;
-
-            const key = getKey();
-            if (!attendanceRecords[key]) attendanceRecords[key] = {};
-
-            classData[className].forEach(student => {
-                attendanceRecords[key][student.id] = status;
-            });
-
+            const recordKey = getKey();
+            if (!attendanceRecords[recordKey]) {
+                attendanceRecords[recordKey] = {};
+            }
+            if (attendanceRecords[recordKey][studentId] === status) {
+                delete attendanceRecords[recordKey][studentId];
+            } else {
+                attendanceRecords[recordKey][studentId] = status;
+            }
             saveData();
             loadAttendance();
         }
@@ -540,39 +512,55 @@
             document.getElementById('statPresent').textContent = present;
             document.getElementById('statAbsent').textContent = absent;
             document.getElementById('statLate').textContent = late;
-            
+
             const rate = total > 0 ? Math.round((present / total) * 100) : 0;
             document.getElementById('statRate').textContent = `%${rate}`;
         }
 
-        function filterStudents() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const rows = document.querySelectorAll('.student-row');
+        function markAll(status) {
+            const className = document.getElementById('classSelect').value;
+            if (!className || !classData[className]) return;
 
+            const recordKey = getKey();
+            if (!attendanceRecords[recordKey]) {
+                attendanceRecords[recordKey] = {};
+            }
+
+            classData[className].forEach(student => {
+                attendanceRecords[recordKey][student.id] = status;
+            });
+
+            saveData();
+            loadAttendance();
+        }
+
+        function filterStudents() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('.student-row');
             rows.forEach(row => {
                 const name = row.getAttribute('data-name');
                 const number = row.getAttribute('data-number');
                 if (name.includes(query) || number.includes(query)) {
-                    row.style.display = 'flex';
+                    row.style.display = '';
                 } else {
                     row.style.display = 'none';
                 }
             });
         }
 
-        // --- Class Actions ---
         function openClassModal() {
             document.getElementById('classModal').classList.remove('hidden');
         }
+
         function closeClassModal() {
             document.getElementById('classModal').classList.add('hidden');
             document.getElementById('newClassName').value = '';
         }
+
         function addNewClass() {
             const name = document.getElementById('newClassName').value.trim();
-            if (!name) return alert('Lütfen sınıf adı giriniz!');
-            
-            if (classData[name]) return alert('Bu sınıf zaten mevcut!');
+            if (!name) return alert('Lütfen sınıf adı giriniz.');
+            if (classData[name]) return alert('Bu sınıf zaten mevcut.');
 
             classData[name] = [];
             saveData();
@@ -585,188 +573,180 @@
         function deleteCurrentClass() {
             const className = document.getElementById('classSelect').value;
             if (!className) return;
+            if (!confirm(`"${className}" sınıfını ve tüm verilerini silmek istediğinize emin misiniz?`)) return;
 
-            if (confirm(`"${className}" sınıfını ve bu sınıfa ait tüm öğrenci kayıtlarını silmek istediğinizden emin misiniz?`)) {
-                delete classData[className];
-                saveData();
-                renderClassSelectOptions();
-                loadAttendance();
-            }
+            delete classData[className];
+            saveData();
+            renderClassSelectOptions();
+            loadAttendance();
         }
 
-        // --- Student Actions ---
         function openSingleStudentModal() {
             const className = document.getElementById('classSelect').value;
-            if (!className) return alert('Lütfen önce bir sınıf seçin!');
+            if (!className) return alert('Önce bir sınıf seçmelisiniz.');
             document.getElementById('singleStudentModal').classList.remove('hidden');
         }
+
         function closeSingleStudentModal() {
             document.getElementById('singleStudentModal').classList.add('hidden');
             document.getElementById('singleStudentNum').value = '';
             document.getElementById('singleStudentName').value = '';
             document.getElementById('singleStudentAdvisor').value = '';
         }
+
         function addSingleStudent() {
             const className = document.getElementById('classSelect').value;
             const num = document.getElementById('singleStudentNum').value.trim();
             const name = document.getElementById('singleStudentName').value.trim();
             const advisor = document.getElementById('singleStudentAdvisor').value.trim();
 
-            if (!name) return alert('Lütfen öğrenci adı giriniz!');
+            if (!name) return alert('Lütfen öğrenci adı giriniz.');
 
-            const newId = Date.now();
+            const newId = classData[className].length > 0 ? Math.max(...classData[className].map(s => s.id)) + 1 : 1;
             classData[className].push({
                 id: newId,
-                name: name,
-                number: num,
-                advisor: advisor
+                name: name.toUpperCase(),
+                number: num || '-',
+                advisor: advisor ? advisor.toUpperCase() : ''
             });
 
             saveData();
+            renderClassSelectOptions();
             closeSingleStudentModal();
             loadAttendance();
         }
 
-        function deleteStudent(studentId) {
-            const className = document.getElementById('classSelect').value;
-            if (confirm('Bu öğrenciyi sınıftan silmek istediğinize emin misiniz?')) {
-                classData[className] = classData[className].filter(s => s.id !== studentId);
-                saveData();
-                loadAttendance();
-            }
-        }
-
-        // --- Bulk Student Import Actions ---
         function openBulkAddModal() {
             const className = document.getElementById('classSelect').value;
-            if (!className) return alert('Lütfen önce bir sınıf seçin!');
-            
+            if (!className) return alert('Önce bir sınıf seçmelisiniz.');
             document.getElementById('bulkModalClassName').textContent = className;
             document.getElementById('bulkAddModal').classList.remove('hidden');
         }
+
         function closeBulkAddModal() {
             document.getElementById('bulkAddModal').classList.add('hidden');
             document.getElementById('bulkTextData').value = '';
-            document.getElementById('excelFileInput').value = '';
-            document.getElementById('excelStatus').textContent = '';
             selectedExcelStudents = [];
+            document.getElementById('excelStatus').textContent = '';
         }
 
         function switchBulkTab(tab) {
+            const textContent = document.getElementById('bulkTabTextContent');
+            const excelContent = document.getElementById('bulkTabExcelContent');
+            const btnText = document.getElementById('tabBtnText');
+            const btnExcel = document.getElementById('tabBtnExcel');
+
             if (tab === 'text') {
-                document.getElementById('bulkTabTextContent').classList.remove('hidden');
-                document.getElementById('bulkTabExcelContent').classList.add('hidden');
-                document.getElementById('tabBtnText').className = 'py-2 px-4 text-xs font-bold border-b-2 border-sky-600 text-sky-600';
-                document.getElementById('tabBtnExcel').className = 'py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700';
+                textContent.classList.remove('hidden');
+                excelContent.classList.add('hidden');
+                btnText.className = "py-2 px-4 text-xs font-bold border-b-2 border-sky-600 text-sky-600";
+                btnExcel.className = "py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700";
             } else {
-                document.getElementById('bulkTabTextContent').classList.add('hidden');
-                document.getElementById('bulkTabExcelContent').classList.remove('hidden');
-                document.getElementById('tabBtnExcel').className = 'py-2 px-4 text-xs font-bold border-b-2 border-sky-600 text-sky-600';
-                document.getElementById('tabBtnText').className = 'py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700';
+                textContent.classList.add('hidden');
+                excelContent.classList.remove('hidden');
+                btnExcel.className = "py-2 px-4 text-xs font-bold border-b-2 border-sky-600 text-sky-600";
+                btnText.className = "py-2 px-4 text-xs font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-700";
             }
-        }
-
-        function handleExcelUpload(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                const data = new Uint8Array(evt.target.result);
-                const workbook = XLSX.read(data, {type: 'array'});
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-                const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
-
-                selectedExcelStudents = [];
-                json.forEach((row) => {
-                    if (row && row.length > 0) {
-                        let num = "", name = "";
-                        if (row.length === 1) {
-                            name = String(row[0]).trim();
-                        } else {
-                            num = String(row[0]).trim();
-                            name = String(row[1]).trim();
-                        }
-                        if (name && name !== 'Adı' && name !== 'Öğrenci Tam Adı') {
-                            selectedExcelStudents.push({ number: num, name: name });
-                        }
-                    }
-                });
-
-                document.getElementById('excelStatus').textContent = `✅ ${selectedExcelStudents.length} adet öğrenci okundu. Sınıfa Ekleyebilirsiniz.`;
-            };
-            reader.readAsArrayBuffer(file);
         }
 
         function processBulkAdd() {
             const className = document.getElementById('classSelect').value;
-            let newStudents = [];
-
-            const isTextTab = !document.getElementById('bulkTabTextContent').classList.contains('hidden');
-
-            if (isTextTab) {
-                const rawText = document.getElementById('bulkTextData').value.trim();
-                if (!rawText) return alert('Lütfen öğrenci listesini yapıştırın!');
-
-                const lines = rawText.split('\n');
+            const textVal = document.getElementById('bulkTextData').value.trim();
+            
+            let addedCount = 0;
+            if (!document.getElementById('bulkTabTextContent').classList.contains('hidden') && textVal) {
+                const lines = textVal.split('\n');
                 lines.forEach(line => {
-                    const trimmed = line.trim();
-                    if (trimmed) {
-                        const parts = trimmed.split(/[\t\s,-]+/);
-                        let num = "", name = "";
+                    const parts = line.trim().split(/\s+/);
+                    if (parts.length > 0) {
+                        let num = '-';
+                        let name = '';
                         if (!isNaN(parts[0])) {
                             num = parts[0];
                             name = parts.slice(1).join(' ');
                         } else {
-                            name = trimmed;
+                            name = parts.join(' ');
                         }
                         if (name) {
-                            newStudents.push({
-                                id: Date.now() + Math.random(),
-                                name: name,
+                            const newId = classData[className].length > 0 ? Math.max(...classData[className].map(s => s.id)) + 1 : 1;
+                            classData[className].push({
+                                id: newId,
+                                name: name.toUpperCase(),
                                 number: num,
                                 advisor: ''
                             });
+                            addedCount++;
                         }
                     }
                 });
-            } else {
-                if (selectedExcelStudents.length === 0) return alert('Lütfen önce bir Excel veya CSV dosyası yükleyin!');
-                selectedExcelStudents.forEach(item => {
-                    newStudents.push({
-                        id: Date.now() + Math.random(),
-                        name: item.name,
-                        number: item.number,
-                        advisor: ''
+            } else if (selectedExcelStudents.length > 0) {
+                selectedExcelStudents.forEach(stu => {
+                    const newId = classData[className].length > 0 ? Math.max(...classData[className].map(s => s.id)) + 1 : 1;
+                    classData[className].push({
+                        id: newId,
+                        name: stu.name.toUpperCase(),
+                        number: stu.number || '-',
+                        advisor: stu.advisor ? stu.advisor.toUpperCase() : ''
                     });
+                    addedCount++;
                 });
             }
 
-            if (newStudents.length > 0) {
-                classData[className] = classData[className].concat(newStudents);
+            if (addedCount > 0) {
                 saveData();
+                renderClassSelectOptions();
                 closeBulkAddModal();
                 loadAttendance();
-                alert(`${newStudents.length} öğrenci başarıyla ${className} sınıfına eklendi.`);
+                alert(`${addedCount} öğrenci başarıyla eklendi!`);
+            } else {
+                alert('Eklenecek geçerli veri bulunamadı.');
             }
         }
 
-        // --- Export & Backup ---
+        function handleExcelUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    const firstSheetName = workbook.SheetNames[0];
+                    const worksheet = workbook.Sheets[firstSheetName];
+                    const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+
+                    selectedExcelStudents = [];
+                    json.forEach(row => {
+                        if (row.length > 0 && row[0]) {
+                            selectedExcelStudents.push({
+                                number: String(row[0] || '-'),
+                                name: String(row[1] || row[0] || ''),
+                                advisor: String(row[2] || '')
+                            });
+                        }
+                    });
+
+                    document.getElementById('excelStatus').textContent = `${selectedExcelStudents.length} öğrenci dosyadan okundu. "Sınıfa Ekle" butonuna basabilirsiniz.`;
+                    document.getElementById('excelStatus').className = "text-xs text-emerald-600 font-semibold text-center";
+                } catch (err) {
+                    document.getElementById('excelStatus').textContent = 'Dosya okunurken bir hata oluştu.';
+                    document.getElementById('excelStatus').className = "text-xs text-red-600 font-semibold text-center";
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
         function exportData() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
-                classes: classData,
-                attendance: attendanceRecords
-            }, null, 2));
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({classData, attendanceRecords}));
             const downloadAnchor = document.createElement('a');
             downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `Yoklama_Yedek_${new Date().toISOString().split('T')[0]}.json`);
+            downloadAnchor.setAttribute("download", `okul_yoklama_yedek_${new Date().toISOString().split('T')[0]}.json`);
             document.body.appendChild(downloadAnchor);
             downloadAnchor.click();
             downloadAnchor.remove();
         }
 
-        // --- Print Summary ---
         function printSummary() {
             window.print();
         }
